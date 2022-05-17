@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1E1E1E"
+    android:paddingHorizontal="12dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".AddNoteActivity">
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Add Note"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/et_title"
+        android:paddingHorizontal="12dp"
+        android:textColorHint="#fff"
+        android:textColor="#fff"
+        android:fontFamily="sans-serif-condensed"
+        android:background="@drawable/shape_notes"
+        android:paddingVertical="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите название" />
+
+    <EditText
+        android:layout_marginTop="12dp"
+        android:paddingHorizontal="12dp"
+        android:fontFamily="sans-serif-condensed"
+        android:id="@+id/et_description"
+        android:paddingVertical="16dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/shape_notes"
+        android:layout_height="wrap_content"
+        android:hint="Введите описание"
+        android:textColor="#fff"
+        android:textColorHint="#fff" />
+
+    <Button
+        android:textStyle="bold"
+        android:id="@+id/btn_save"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shape_notes"
+        android:textColor="#fff"
+        android:text="Сохранить"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
