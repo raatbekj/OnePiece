@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
     private TextView textView;
-    private Integer first, second, result;
-    private Boolean isOperationClick;
-    private String operator;
+    private Double first, second, result;
+    boolean isOperationClick;
+    boolean isDotClick = false;
+    private String operation;
+    Button buttonNA;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -22,150 +25,160 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.text_view);
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void onNumberClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
+            case R.id.btn_clear:
+                textView.setText("0");
+                first = 0.0;
+                second = 0.0;
+                isDotClick = false;
+                break;
             case R.id.btn_one:
-                //нажал на единицу
-                if (textView.getText().toString().equals("0")){
-                    textView.setText("1");
-                }else if (isOperationClick){
-                    textView.setText("1");
-                }else {
-                    textView.append("1");
-                }
+                listenClick("1");
                 break;
             case R.id.btn_two:
-                //2
-                if (textView.getText().toString().equals("0")){
-                    textView.setText("2");
-                }else if (isOperationClick){
-                    textView.setText("2");
-                }else {
-                    textView.append("2");
-                }
+                listenClick("2");
                 break;
             case R.id.btn_three:
-                //3
-                if (textView.getText().toString().equals("0")){
-                    textView.setText("3");
-                }else if (isOperationClick){
-                    textView.setText("3");
-                }else {
-                    textView.append("3");
-                }
+                listenClick("3");
                 break;
-             case R.id.btn_four:
-                //4
-                if (textView.getText().toString().equals("0")){
-                    textView.setText("4");
-                }else if (isOperationClick){
-                    textView.setText("4");
-                }else {
-                    textView.append("4");
-                }
+            case R.id.btn_four:
+                listenClick("4");
                 break;
             case R.id.btn_five:
-                //5
-                if (textView.getText().toString().equals("0")){
-                    textView.setText("5");
-                }else if (isOperationClick){
-                    textView.setText("5");
-                }else {
-                    textView.append("5");
-                }
+                listenClick("5");
                 break;
             case R.id.btn_six:
-                //6
-                if (textView.getText().toString().equals("0")){
-                    textView.setText("6");
-                }else if (isOperationClick){
-                    textView.setText("6");
-                }else {
-                    textView.append("6");
-                }
+                listenClick("6");
                 break;
             case R.id.btn_seven:
-                //7
-                if (textView.getText().toString().equals("0")){
-                    textView.setText("7");
-                }else if (isOperationClick){
-                    textView.setText("7");
-                }else {
-                    textView.append("7");
-                }
+                listenClick("7");
                 break;
             case R.id.btn_vosim:
-                //8
-                if (textView.getText().toString().equals("0")){
-                    textView.setText("8");
-                }else if (isOperationClick){
-                    textView.setText("8");
-                }else {
-                    textView.append("8");
-                }
+                listenClick("8");
                 break;
             case R.id.btn_nine:
-                //9
-                if (textView.getText().toString().equals("0")){
-                    textView.setText("9");
-                }else if (isOperationClick){
-                    textView.setText("9");
-                }else {
-                    textView.append("9");
-                }
+                listenClick("9");
                 break;
             case R.id.btn_zero:
-                //0
-                if (textView.getText().toString().equals("0")){
-                    textView.setText("0");
-                }else if (isOperationClick){
-                    textView.setText("0");
-                }else {
-                    textView.append("0");
+                listenClick("0");
+                break;
+            case R.id.btn_nipple:
+                if (!isDotClick) {
+                    textView.append(".");
                 }
+                isDotClick = true;
                 break;
-             case R.id.btn_clear:
-                textView.setText("0");
-                first = 0;
-                second = 0;
-                break;
-
-
-        }isOperationClick = false;
-
+            case R.id.btn_pos_neg:
+                if (!textView.getText().toString().equals("0")) {
+                    String s = textView.getText().toString();
+                    if (s.startsWith("-")) {
+                        String newS = s.replace("-", "");
+                        textView.setText(newS);
+                    } else {
+                        textView.setText("-".concat(s));
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "'0' не может быть отрицательным.",
+                            Toast.LENGTH_SHORT).show();
+                }
+        }
+        isOperationClick = false;
+        buttonNA.setVisibility(View.GONE);
     }
 
-    public void onOperationClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_Umno:
-                first = Integer.valueOf(textView.getText().toString());
-                operator = "*";
-                break;
-            case R.id.btn_slash:
-                first = Integer.valueOf(textView.getText().toString());
-                operator = "/";
+
+    private void listenClick(String i) {
+        if (textView.getText().toString().equals("0")) {
+            textView.setText(i);
+        } else if (isOperationClick) {
+            textView.setText(i);
+        } else {
+            textView.append(i);
+        }
+    }
+
+
+    @SuppressLint("NonConstantResourceId")
+    public void setOperationClick(View view) {
+        String txtNewResult;
+        switch (view.getId()) {
+            case R.id.btn_plus:
+                first = Double.valueOf(textView.getText().toString());
+                operation = "plus";
+                isDotClick = false;
+                buttonNA.setVisibility(View.GONE);
                 break;
             case R.id.btn_minus:
-                first = Integer.valueOf(textView.getText().toString());
-                operator = "-";
+                first = Double.valueOf(textView.getText().toString());
+                operation = "subtraction";
+                isDotClick = false;
+                buttonNA.setVisibility(View.GONE);
                 break;
-            case R.id.btn_equal:
-                second = Integer.valueOf(textView.getText().toString());
-                if (operator == "+") {
-                    result = first + second;
+            case R.id.btn_slash:
+                first = Double.valueOf(textView.getText().toString());
+                operation = "division";
+                isDotClick = false;
+                buttonNA.setVisibility(View.GONE);
+                break;
+            case R.id.btn_Umno:
+                first = Double.valueOf(textView.getText().toString());
+                operation = "multiply";
+                isDotClick = false;
+                buttonNA.setVisibility(View.GONE);
+                break;
+            case R.id.btn_proc:
+                first = Double.valueOf(textView.getText().toString());
+                result = first / 100;
+                String txtResult = result.toString();
+                if (txtResult.endsWith(".0")) {
+                    txtNewResult = txtResult.substring(0, txtResult.length()-2);
+                    textView.setText(txtNewResult);
+                    isDotClick = false;
+                } else {
+                    textView.setText(txtResult);
                 }
-                if (operator == "-"){
-                    result = first - second;
-                }
-                if (operator == "*"){
-                    result = first * second;
-                }
-                if (operator == "/"){
-                    result = first / second;
-                }
-                textView.setText(result.toString());
-                break;}
-        isOperationClick = true;
+                isDotClick = false;
+                buttonNA.setVisibility(View.GONE);
+                break;
 
+            case R.id.btn_equal:
+                switch (operation) {
+                    case "plus":
+                        second = Double.valueOf(textView.getText().toString());
+                        result = first + second;
+                        break;
+                    case "subtraction":
+                        second = Double.valueOf(textView.getText().toString());
+                        result = first - second;
+                        break;
+                    case "division":
+                        second = Double.valueOf(textView.getText().toString());
+                        if (second == 0) {
+                            result = 0.0;
+                        } else {
+                            result = first / second;
+                        }
+                        break;
+                    case "multiply":
+                        second = Double.valueOf(textView.getText().toString());
+                        result = first * second;
+                        break;
+                }
+                txtResult = result.toString();
+                if (txtResult.endsWith(".0")) {
+                    txtNewResult = txtResult.substring(0, txtResult.length()-2);
+                    textView.setText(txtNewResult);
+                    isDotClick = false;
+                } else {
+                    textView.setText(txtResult);
+                }
+                buttonNA.setVisibility(View.VISIBLE);
+                break;
+        }
+        isOperationClick = true;
     }
+
+
 }

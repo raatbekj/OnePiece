@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -28,7 +29,7 @@
         android:clickable="true"
         android:orientation="horizontal">
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/btn_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,9 +37,10 @@
             app:icon="@drawable/ic_phone"
             app:iconGravity="start"
             android:text="Call"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            tools:ignore="MissingClass" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/btn_whatsapp"
             android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
@@ -47,7 +49,9 @@
             app:cornerRadius="300dp"
             app:iconSize="20dp"
             android:text="Message"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            tools:ignore="MissingClass" />
+
     </LinearLayout>
 
 </LinearLayout>
